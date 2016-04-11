@@ -24,6 +24,8 @@ stunnel:
     - source: salt://stunnel/templates/config.jinja
     - require:
       - file: {{ stunnel_map.conf_dir }}
+    - watch_in:
+      service: {{ stunnel_map.service }}
     - context:
       default_user: {{ stunnel_map.default_user }}
       default_group: {{ stunnel_map.default_group }}
@@ -46,3 +48,8 @@ stunnel:
     - source: salt://stunnel/templates/default.jinja
     - context:
       conf_dir: {{ stunnel_map.conf_dir }}
+
+{{ stunnel_map.service }}:
+  service.running:
+    - enable: True
+    - restart: True

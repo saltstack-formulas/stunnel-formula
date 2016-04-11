@@ -12,11 +12,18 @@ setgid = {{ stunnel.get('group', default_group) }}
 sslVersion = {{ stunnel.get('sslVersion', "all") }}
 ciphers = {{ stunnel.get('ciphers', 'ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:AES128-GCM-SHA256') }}
 
-cert = {{ stunnel.get('cert', '') }}
-key = {{ stunnel.get('key', '') }}
-CAfile = {{ stunnel.get('ca', '') }}
-
+{%- if 'cert' in stunnel %}
+cert = {{ stunnel.cert }}
+{%- endif %}
+{%- if 'key' in stunnel %}
+key = {{ stunnel.key }}
+{%- endif %}
+{%- if 'ca' in stunnel %}
+CAfile = {{ stunnel.ca }}
+{%- endif %}
+{%- if stunnel.get('verify', False) != False %}
 verify = {{ stunnel.get('verify', '3') }}
+{%- endif %}
 
 {% for option in stunnel.get('options', []) -%}
 options = {{ option }}
