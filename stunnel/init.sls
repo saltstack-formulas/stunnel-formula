@@ -14,6 +14,13 @@ stunnel_package:
     - user: {{ stunnel_map.default_user }}
     - makedirs: True
 
+{% if grains['os_family'] == 'FreeBSD' %}
+/usr/local/etc/stunnel/stunnel.conf:
+  file.managed:
+    - contents: |
+        include = /usr/local/etc/stunnel/conf.d
+{% endif %}
+
 {% for service in salt['pillar.get']('stunnel:config:services', {}) %}
 {{ stunnel_map.conf_dir }}/{{ service.name }}.conf:
   file.managed:
