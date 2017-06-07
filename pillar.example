@@ -5,7 +5,7 @@ stunnel:
     package: stunnel4
     service: stunnel4
     default_user: stunnel4
-    group: stunnel4
+    default_group: stunnel4
     home: /var/lib/stunnel4
     conf_dir: /etc/stunnel
     log_dir: /var/log/stunnel
