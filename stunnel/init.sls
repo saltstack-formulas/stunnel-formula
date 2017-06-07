@@ -39,6 +39,7 @@ stunnel_package:
     - user: {{ stunnel_map.default_user }}
     - makedirs: True
 
+{% if grains['os_family'] == 'Debian' -%}
 {{ stunnel_map.default }}:
   file.managed:
     - template: jinja
@@ -48,6 +49,7 @@ stunnel_package:
     - source: salt://stunnel/templates/default.jinja
     - context:
       conf_dir: {{ stunnel_map.conf_dir }}
+{% endif -%}
 
 stunnel_service:
   service.running:
