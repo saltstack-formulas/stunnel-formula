@@ -1,5 +1,5 @@
 {% from "stunnel/map.jinja" import stunnel as stunnel_map with context -%}
-stunnel:
+stunnel_package:
   pkg.installed:
     - name: {{ stunnel_map.package }}
 
@@ -49,7 +49,8 @@ stunnel:
     - context:
       conf_dir: {{ stunnel_map.conf_dir }}
 
-{{ stunnel_map.service }}:
+stunnel_service:
   service.running:
+    - name: {{ stunnel_map.service }}
     - enable: True
     - restart: True
