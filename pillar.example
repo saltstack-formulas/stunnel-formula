@@ -4,7 +4,7 @@ stunnel:
   lookup:
     package: stunnel4
     service: stunnel4
-    user: stunnel4
+    default_user: stunnel4
     group: stunnel4
     home: /var/lib/stunnel4
     conf_dir: /etc/stunnel
