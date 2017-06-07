@@ -10,4 +10,15 @@
         'default': '/etc/default/stunnel4',
         'pid_dir': '/var/run/stunnel4'
     },
+    'FreeBSD': {
+        'package': 'stunnel',
+        'service': 'stunnel',
+        'default_user': 'stunnel',
+        'default_group': 'stunnel',
+        'home': '/nonexistent',
+        'conf_dir': '/usr/local/etc/stunnel/conf.d',
+        'log_dir': '/var/log/stunnel',
+        'default': None,
+        'pid_dir': '/var/run',
+    },
 }, merge=salt['pillar.get']('stunnel:lookup'), default='Debian') %}
