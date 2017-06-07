@@ -3,7 +3,9 @@
 # THIS FILE IS MANAGED BY SALT. DO NOT EDIT DIRECTLY
 # defaults passed via context from map.jinja
 
+{% if stunnel_map.use_chroot %}
 chroot = {{ stunnel.get('home', default_home) }}
+{% endif %}
 pid = {{ pid }}
 
 setuid = {{ stunnel.get('user', default_user) }}

@@ -8,7 +8,8 @@
         'conf_dir': '/etc/stunnel',
         'log_dir': '/var/log/stunnel',
         'default': '/etc/default/stunnel4',
-        'pid_dir': '/var/run/stunnel4'
+        'pid_dir': '/var/run/stunnel4',
+        'use_chroot': True
     },
     'FreeBSD': {
         'package': 'stunnel',
@@ -20,5 +21,6 @@
         'log_dir': '/var/log/stunnel',
         'default': None,
         'pid_dir': '/var/run',
+        'use_chroot': False
     },
 }, merge=salt['pillar.get']('stunnel:lookup'), default='Debian') %}
