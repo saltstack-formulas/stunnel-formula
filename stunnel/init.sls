@@ -20,6 +20,9 @@ stunnel_package:
     - user: root
     - group: wheel
 
+{{ stunnel_map.conf_dir }}/conf.d/pid.conf:
+  file.absent: []
+
 {{ stunnel_map.conf_dir }}/stunnel.conf:
   file.managed:
     - template: jinja
