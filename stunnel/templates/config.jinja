@@ -1,5 +1,6 @@
 {% set stunnel = salt['pillar.get']('stunnel:config', {}) -%}
 {% from "stunnel/map.jinja" import stunnel as stunnel_map with context -%}
+{% from "stunnel/templates/service.jinja" import service_segment -%}
 # THIS FILE IS MANAGED BY SALT. DO NOT EDIT DIRECTLY
 # defaults passed via context from map.jinja
 
@@ -31,12 +32,8 @@ verify = {{ stunnel.get('verify', '3') }}
 options = {{ option }}
 {% endfor %}
 
-[ {{ service.get('name') }} ]
-client = {{ service.get('client') }}
-accept = {{ service.get('accept') }}
-connect = {{ service.get('connect') }} 
-{% if service.get('nodelay') and service.get('client')=='yes' -%}
-socket = l:TCP_NODELAY=1
-{% elif service.get('nodelay') and service.get('client')=='no' -%}
-socket = r:TCP_NODELAY=1
+{% if grains['os_family'] == 'FreeBSD' -%}
+include = /usr/local/etc/stunnel/conf.d
+{% else -%}
+{{ service_segment(service) }}
 {% endif -%}

@@ -1,0 +1,13 @@
+{% macro service_segment(service) -%}
+[ {{ service.get('name') }} ]
+client = {{ service.get('client') }}
+accept = {{ service.get('accept') }}
+connect = {{ service.get('connect') }}
+{% if service.get('nodelay') and service.get('client')=='yes' -%}
+socket = l:TCP_NODELAY=1
+{% elif service.get('nodelay') and service.get('client')=='no' -%}
+socket = r:TCP_NODELAY=1
+{% endif -%}
+{% endmacro -%}
+
+{{ service_segment(service) }}

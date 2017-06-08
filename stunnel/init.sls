@@ -14,13 +14,46 @@ stunnel_package:
     - user: {{ stunnel_map.default_user }}
     - makedirs: True
 
-{% if grains['os_family'] == 'FreeBSD' %}
-/usr/local/etc/stunnel/stunnel.conf:
-  file.managed:
-    - contents: |
-        include = /usr/local/etc/stunnel/conf.d
-{% endif %}
+{% if grains['os_family'] == 'FreeBSD' -%}
+{{ stunnel_map.conf_dir }}/conf.d:
+  file.directory:
+    - user: root
+    - group: wheel
 
+{{ stunnel_map.conf_dir }}/stunnel.conf:
+  file.managed:
+    - template: jinja
+    - source: salt://stunnel/templates/config.jinja
+    - user: root
+    - group: wheel
+    - mode: 644
+    - require:
+      - file: {{ stunnel_map.conf_dir }}
+    - watch_in:
+      - service: {{ stunnel_map.service }}
+    - context:
+        default_user: {{ stunnel_map.default_user }}
+        default_group: {{ stunnel_map.default_group }}
+        default_home:  {{ stunnel_map.home }}
+        pid:  {{ stunnel_map.pid_dir }}/stunnel.pid
+        service: {}
+
+{% for service in salt['pillar.get']('stunnel:config:services', {}) %}
+{{ stunnel_map.conf_dir }}/conf.d/{{ service.name }}.conf:
+  file.managed:
+    - template: jinja
+    - user: root
+    - group: wheel
+    - mode: 644
+    - source: salt://stunnel/templates/service.jinja
+    - require:
+      - file: {{ stunnel_map.conf_dir }}/conf.d
+    - watch_in:
+      - service: {{ stunnel_map.service }}
+    - context:
+        service: {{ service }}
+{% endfor -%}
+{% else -%}
 {% for service in salt['pillar.get']('stunnel:config:services', {}) %}
 {{ stunnel_map.conf_dir }}/{{ service.name }}.conf:
   file.managed:
@@ -32,14 +65,15 @@ stunnel_package:
     - require:
       - file: {{ stunnel_map.conf_dir }}
     - watch_in:
-      service: {{ stunnel_map.service }}
+      - service: {{ stunnel_map.service }}
     - context:
-      default_user: {{ stunnel_map.default_user }}
-      default_group: {{ stunnel_map.default_group }}
-      default_home:  {{ stunnel_map.home }}
-      pid:  {{ stunnel_map.pid_dir }}/{{ service.name }}.pid
-      service: {{ service }}
+        default_user: {{ stunnel_map.default_user }}
+        default_group: {{ stunnel_map.default_group }}
+        default_home:  {{ stunnel_map.home }}
+        pid:  {{ stunnel_map.pid_dir }}/{{ service.name }}.pid
+        service: {{ service }}
 {% endfor -%}
+{% endif -%}
 
 {{ stunnel_map.log_dir }}:
   file.directory:
