@@ -27,6 +27,12 @@ CAfile = {{ stunnel.ca }}
 {%- if stunnel.get('verify', False) != False %}
 verify = {{ stunnel.get('verify', '3') }}
 {%- endif %}
+{%- if stunnel.get('verifyChain', 'not_set') != 'not_set' %}
+verifyChain = {{ 'yes' if stunnel.get('verifyChain') else 'no' }}
+{%- endif %}
+{%- if stunnel.get('verifyPeer', 'not_set') != 'not_set' %}
+verifyPeer = {{ 'yes' if stunnel.get('verifyPeer') else 'no' }}
+{%- endif %}
 
 {% for option in stunnel.get('options', []) -%}
 options = {{ option }}
