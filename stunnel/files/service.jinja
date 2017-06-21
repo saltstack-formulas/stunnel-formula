@@ -1,0 +1,27 @@
+# THIS FILE IS MANAGED BY SALT. DO NOT EDIT DIRECTLY
+{% from "stunnel/map.jinja" import stunnel with context -%}
+{% macro service_segment(service) -%}
+
+[ {{ service.name }} ]
+{%  for key in service.keys() | sort -%}
+{%    set setting = service.get(key) -%}
+{%    if key == 'name' -%}
+{#      don't show -#}
+{%    elif setting is iterable and setting is not string -%}
+{%      for value in setting -%}
+{{ key }} = {{ value }}
+{%      endfor -%}
+{%    else -%}
+{%      if setting is sameas True -%}
+{%        set value = 'yes' -%}
+{%      elif setting is sameas False -%}
+{%        set value = 'no'-%}
+{%      else -%}
+{%        set value = setting -%}
+{%      endif -%}
+{{ key }} = {{ value }}
+{%    endif -%}
+{% endfor -%}
+{% endmacro -%}
+
+{{ service_segment(service) }}

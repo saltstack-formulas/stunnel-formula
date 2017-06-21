@@ -4,38 +4,36 @@ stunnel:
   lookup:
     package: stunnel4
     service: stunnel4
-    default_user: stunnel4
-    default_group: stunnel4
+    user: stunnel4
+    group: stunnel4
     home: /var/lib/stunnel4
     conf_dir: /etc/stunnel
     log_dir: /var/log/stunnel
     pid: /var/run/stunnel.pid
+    service_defaults:  # use this to override service_defaults.yaml
+      # The presence of these files is MANDATORY.
+      # Managing these files is currently out of scope of this formula.
+      # (Have a look at map.jinja to get your OS'es paths.)
+      cert: /etc/stunnel/stunnel.crt
+      key: /etc/stunnel/stunnel.key
+      ca: /etc/stunnel/ca.crt
+      # in example:
+      verifyChain: yes  # True and False work too
+      verifyPeer: yes
+      debug: notice
 
   config:
-    # These are MANDATORY. Managing these files is currently out of scope of this formula.
-    cert: /etc/stunnel/stunnel.crt
-    key: /etc/stunnel/stunnel.key
-    ca: /etc/stunnel/ca.crt
-    # verify: 3  # obsolete
-    verifyChain: yes
-    verifyPeer: yes
-
-    debug: notice
-
-    sslVersion: all
-    ciphers: 'ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:AES128-GCM-SHA256'
-
-    options:
-      - NO_SSLv2
-      - NO_SSLv3
-
     services:
-      - name: graphite-server
+      graphite-server:
         client: 'no'
         accept: '12003'
         connect: '127.0.0.1:2003'
         nodelay: True     # l:TCP_NODELAY=1 on server, r:TCP_NODELAY=1 on client
-      - name: graphite-client
+        # These two strongly depend on your security model
+        verifyChain: yes
+        verifyPeer: no
+        debug: notice
+      graphite-client:
         client: 'yes'
         accept: '127.0.0.1:2003'
         connect: 'example.com:12003'

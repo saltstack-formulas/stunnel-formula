@@ -1,0 +1,19 @@
+# THIS FILE IS MANAGED BY SALT. DO NOT EDIT DIRECTLY
+{% from "stunnel/map.jinja" import stunnel with context -%}
+
+{% if stunnel.use_chroot %}
+chroot = {{ stunnel.home }}
+{% endif %}
+pid = {{ stunnel.pid_dir }}/{{ service.get('name', 'stunnel') }}.pid
+
+setuid = {{ stunnel.user }}
+setgid = {{ stunnel.group }}
+
+debug = {{ stunnel.get('debug', 'notice') }}
+
+{% if name in service -%}
+{% from "stunnel/files/service.jinja" import service_segment -%}
+{{ service_segment(service) }}
+{% else -%}
+include = /usr/local/etc/stunnel/conf.d
+{% endif -%}

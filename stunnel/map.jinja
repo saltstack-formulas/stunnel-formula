@@ -1,9 +1,10 @@
+{% import_yaml "stunnel/service_defaults.yaml" as service_defaults %}
 {% set stunnel = salt['grains.filter_by']({
     'Debian': {
         'package': 'stunnel4',
         'service': 'stunnel4',
-        'default_user': 'stunnel4',
-        'default_group': 'stunnel4',
+        'user': 'stunnel4',
+        'group': 'stunnel4',
         'home': '/var/lib/stunnel4',
         'conf_dir': '/etc/stunnel',
         'log_dir': '/var/log/stunnel',
@@ -14,13 +15,14 @@
     'FreeBSD': {
         'package': 'stunnel',
         'service': 'stunnel',
-        'default_user': 'stunnel',
-        'default_group': 'stunnel',
+        'user': 'stunnel',
+        'group': 'stunnel',
         'home': '/nonexistent',
         'conf_dir': '/usr/local/etc/stunnel',
         'log_dir': '/var/log/stunnel',
         'default': None,
         'pid_dir': '/var/run',
-        'use_chroot': False
+        'use_chroot': False,
     },
 }, merge=salt['pillar.get']('stunnel:lookup'), default='Debian') %}
+{% do service_defaults.update(stunnel.get('service_defaults', {})) %}
