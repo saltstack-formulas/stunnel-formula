@@ -1,8 +1,8 @@
 # THIS FILE IS MANAGED BY SALT. DO NOT EDIT DIRECTLY
 {% from "stunnel/map.jinja" import stunnel with context -%}
-{% macro service_segment(service) -%}
+{% macro service_segment(service_name, service) -%}
 
-[ {{ service.name }} ]
+[ {{ service_name }} ]
 {%  for key in service.keys() | sort -%}
 {%    set setting = service.get(key) -%}
 {%    if key == 'name' -%}
@@ -24,4 +24,4 @@
 {% endfor -%}
 {% endmacro -%}
 
-{{ service_segment(service) }}
+{{ service_segment(service_name, service) }}

@@ -15,5 +15,5 @@ debug = {{ stunnel.get('debug', 'notice') }}
 {% from "stunnel/files/service.jinja" import service_segment -%}
 {{ service_segment(service) }}
 {% else -%}
-include = /usr/local/etc/stunnel/conf.d
+include = {{ stunnel.conf_dir }}/conf.d
 {% endif -%}
