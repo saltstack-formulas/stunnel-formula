@@ -5,9 +5,7 @@
 [ {{ service_name }} ]
 {%  for key in service.keys() | sort -%}
 {%    set setting = service.get(key) -%}
-{%    if key == 'name' -%}
-{#      don't show -#}
-{%    elif setting is iterable and setting is not string -%}
+{%    if setting is iterable and setting is not string -%}
 {%      for value in setting -%}
 {{ key }} = {{ value }}
 {%      endfor -%}
