@@ -1,28 +1,21 @@
-{% import_yaml "stunnel/service_defaults.yaml" as service_defaults %}
-{% set stunnel = salt['grains.filter_by']({
-    'Debian': {
-        'package': 'stunnel4',
-        'service': 'stunnel4',
-        'user': 'stunnel4',
-        'group': 'stunnel4',
-        'home': '/var/lib/stunnel4',
-        'conf_dir': '/etc/stunnel',
-        'log_dir': '/var/log/stunnel4',
-        'default': '/etc/default/stunnel4',
-        'pid_dir': '/var/run/stunnel4',
-        'use_chroot': True
-    },
-    'FreeBSD': {
-        'package': 'stunnel',
-        'service': 'stunnel',
-        'user': 'stunnel',
-        'group': 'stunnel',
-        'home': '/nonexistent',
-        'conf_dir': '/usr/local/etc/stunnel',
-        'log_dir': '/var/log/stunnel',
-        'default': None,
-        'pid_dir': '/var/run',
-        'use_chroot': False,
-    },
-}, merge=salt['pillar.get']('stunnel:lookup'), default='Debian') %}
-{% do service_defaults.update(stunnel.get('service_defaults', {})) %}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% import_yaml "stunnel/defaults.yml" as defaults %}
+{% import_yaml "stunnel/os_family_map.yml" as os_family_map %}
+{% import_yaml "stunnel/os_codename_map.yml" as os_codename_map %}
+
+{# get the settings for the os_family grain #}
+{% set osfam = salt['grains.filter_by'](os_family_map) or {} %}
+
+{# get the settings for the oscodename grain, os_family data will override oscodename data #}
+{% set oscode = salt['grains.filter_by'](os_codename_map, grain='oscodename', merge=osfam) or {} %}
+
+{# merge the os family/os codename specific data over the defaults #}
+{% do defaults.stunnel.update(oscode) %}
+
+{# merge the pillar:lookup dict into the defaults/os specific dict #}
+{% set lookup = salt['pillar.get']('stunnel:lookup', default=defaults.stunnel, merge=True) %}
+
+{# merge the actual stunnel pillar into the above combined dict #}
+{% set stunnel = salt['pillar.get']('stunnel', default=lookup, merge=True) %}
