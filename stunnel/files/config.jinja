@@ -11,9 +11,4 @@ setgid = {{ stunnel.group }}
 
 debug = {{ stunnel.get('debug', 'notice') }}
 
-{% if name in service -%}
-{% from "stunnel/files/service.jinja" import service_segment -%}
-{{ service_segment(service) }}
-{% else -%}
-include = /usr/local/etc/stunnel/conf.d
-{% endif -%}
+include = {{ stunnel.conf_dir }}/conf.d

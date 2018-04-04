@@ -16,28 +16,28 @@ stunnel_package:
     - user: {{ stunnel.user }}
     - makedirs: True
 
-{% if grains['os_family'] == 'FreeBSD' -%}
 {{ stunnel.conf_dir }}/conf.d:
   file.directory:
-    - user: root
-    - group: wheel
-
-{{ stunnel.conf_dir }}/conf.d/pid.conf:
-  file.absent: []
+    - user: {{ stunnel.user }}
+    - group: {{ stunnel.group }}
 
 {{ stunnel.conf_dir }}/stunnel.conf:
   file.managed:
     - template: jinja
     - source: salt://stunnel/files/config.jinja
-    - user: root
-    - group: wheel
+    - user: {{ stunnel.user }}
+    - group: {{ stunnel.group }}
     - mode: 644
     - require:
       - file: {{ stunnel.conf_dir }}
     - watch_in:
-      - service: {{ stunnel.service }}
+      - service: stunnel_service
     - context:
         service: {}
+
+{% if grains['os_family'] == 'FreeBSD' -%}
+{{ stunnel.conf_dir }}/conf.d/pid.conf:
+  file.absent: []
 
 {% for service_name, service_custom in salt['pillar.get']('stunnel:config:services', {}).iteritems() -%}
 {% set service = service_defaults.copy() -%}
@@ -59,24 +59,26 @@ stunnel_package:
     - require:
       - file: {{ stunnel.conf_dir }}/conf.d
     - watch_in:
-      - service: {{ stunnel.service }}
+      - service: stunnel_service
     - context:
+        service_name: {{ service_name }}
         service: {{ service }}
 {% endfor -%}
 {% else -%}
-{% for service in salt['pillar.get']('stunnel:config:services', {}) %}
-{{ stunnel.conf_dir }}/{{ service.name }}.conf:
+{% for service_name, service in salt['pillar.get']('stunnel:config:services', {}).iteritems() %}
+{{ stunnel.conf_dir }}/conf.d/{{ service_name }}.conf:
   file.managed:
     - template: jinja
     - user: {{ stunnel.user }}
     - group: {{ stunnel.group }}
     - mode: 644
-    - source: salt://stunnel/files/config.jinja
+    - source: salt://stunnel/files/service.jinja
     - require:
       - file: {{ stunnel.conf_dir }}
     - watch_in:
-      - service: {{ stunnel.service }}
+      - service: stunnel_service
     - context:
+        service_name: {{ service_name }}
         service: {{ service }}
 {% endfor -%}
 {% endif -%}

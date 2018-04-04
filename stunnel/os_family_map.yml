@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+Debian:
+  package: stunnel4
+  service: stunnel4
+  user: stunnel4
+  group: stunnel4
+  home: /var/lib/stunnel4
+  conf_dir: /etc/stunnel
+  log_dir: /var/log/stunnel4
+  default: /etc/default/stunnel4
+  pid_dir: /var/run/stunnel4
+  use_chroot: true
+
+FreeBSD:
+  package: stunnel
+  service: stunnel
+  user: stunnel
+  group: stunnel
+  home: /nonexistent
+  conf_dir: /usr/local/etc/stunnel
+  log_dir: /var/log/stunnel
+  default: None
+  pid_dir: /var/run
+  use_chroot: false
