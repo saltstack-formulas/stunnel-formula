@@ -23,6 +23,12 @@ stunnel_package:
     - group: {{ stunnel.group }}
     - mode: 750
 
+{{ stunnel.conf_dir }}/services.d:
+  file.directory:
+    - user: {{ stunnel.root_user }}
+    - group: {{ stunnel.group }}
+    - mode: 750
+
 {{ stunnel.conf_dir }}/tls:
   file.directory:
     - user: {{ stunnel.root_user }}
@@ -56,7 +62,7 @@ stunnel_package:
 }) -%}
 {% do service.update(service_custom) -%}
 
-{{ stunnel.conf_dir }}/conf.d/{{ service.name }}.conf:
+{{ stunnel.conf_dir }}/services.d/{{ service.name }}.conf:
   file.managed:
     - template: jinja
     - user: {{ stunnel.root_user }}
@@ -64,7 +70,7 @@ stunnel_package:
     - mode: 640
     - source: salt://stunnel/files/service.jinja
     - require:
-      - file: {{ stunnel.conf_dir }}/conf.d
+      - file: {{ stunnel.conf_dir }}/services.d
     - watch_in:
       - service: stunnel_service
     - context:
