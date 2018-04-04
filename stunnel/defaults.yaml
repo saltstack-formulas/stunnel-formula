@@ -4,15 +4,6 @@
 # Please just read https://www.stunnel.org/static/stunnel.html
 # from top to bottom! All the settings are taken from there.
 
-stunnel:
-  verifyChain: yes
-  verifyPeer: yes
-  ciphers: 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!ECDSA'
-  # Allow future versions
-  sslVersion: all
-  # Exclude known (becoming) insecure SSL/TLS versions
-  options:
-    - NO_SSLv2
-    - NO_SSLv3
-    - NO_TLSv1
-    - cipher_server_preference
+# GLOBAL DEFAULTS
+
+stunnel: {}

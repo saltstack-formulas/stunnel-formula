@@ -4,6 +4,7 @@
 {% import_yaml "stunnel/defaults.yaml" as defaults %}
 {% import_yaml "stunnel/os_family_map.yaml" as os_family_map %}
 {% import_yaml "stunnel/os_codename_map.yaml" as os_codename_map %}
+{% import_yaml "stunnel/service_defaults.yaml" as service_defaults %}
 
 {# get the settings for the os_family grain #}
 {% set osfam = salt['grains.filter_by'](os_family_map) or {} %}
