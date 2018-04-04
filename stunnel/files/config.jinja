@@ -12,3 +12,4 @@ setgid = {{ stunnel.group }}
 debug = {{ stunnel.get('debug', 'notice') }}
 
 include = {{ stunnel.conf_dir }}/conf.d
+include = {{ stunnel.conf_dir }}/services.d
