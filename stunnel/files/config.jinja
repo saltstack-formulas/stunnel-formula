@@ -3,8 +3,11 @@
 
 {% if stunnel.use_chroot %}
 chroot = {{ stunnel.home }}
-{% endif %}
+# relative to chroot
+pid = /stunnel.pid
+{% else %}
 pid = {{ stunnel.pid_dir }}/stunnel.pid
+{% endif %}
 
 setuid = {{ stunnel.user }}
 setgid = {{ stunnel.group }}
