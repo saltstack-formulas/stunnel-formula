@@ -18,6 +18,7 @@ FreeBSD:
   service: stunnel
   user: stunnel
   group: stunnel
+  root_group: wheel
   home: /nonexistent
   conf_dir: /usr/local/etc/stunnel
   log_dir: /var/log/stunnel
