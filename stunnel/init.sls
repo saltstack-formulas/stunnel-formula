@@ -52,7 +52,7 @@ stunnel_package:
   file.absent: []
 {% endif -%}
 
-{% for service_name, service_custom in salt['pillar.get']('stunnel:config:services', {}).iteritems() -%}
+{% for service_name, service_custom in salt['pillar.get']('stunnel:config:services', {}).items() -%}
 {% set service = service_defaults.copy() -%}
 {% do service.update({
     'name': service_name,
