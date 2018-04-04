@@ -11,12 +11,12 @@ stunnel:
     log_dir: /var/log/stunnel
     pid: /var/run/stunnel.pid
     service_defaults:  # use this to override service_defaults.yaml
-      # The presence of these files is MANDATORY.
+      # The presence of these files per service is MANDATORY.
       # Managing these files is currently out of scope of this formula.
       # (Have a look at map.jinja to get your OS'es paths.)
-      cert: /etc/stunnel/stunnel.crt
-      key: /etc/stunnel/stunnel.key
-      ca: /etc/stunnel/ca.crt
+      cert: /etc/stunnel/tls/${service_name}.crt
+      key: /etc/stunnel/tls/${service_name}.key
+      ca: /etc/stunnel/tls/${service_name}.ca
       # in example:
       verifyChain: yes  # True and False work too
       verifyPeer: yes

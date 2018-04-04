@@ -6,4 +6,6 @@
 
 # GLOBAL DEFAULTS
 
-stunnel: {}
+stunnel:
+  root_user: root
+  root_group: root
