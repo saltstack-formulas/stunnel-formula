@@ -1,10 +1,20 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-{%- macro service_segment(name, config) -%}
+{% from "stunnel/map.jinja" import stunnel with context -%}
+{% from "stunnel/map.jinja" import service_defaults with context -%}
+
+{%- macro service_segment(name) -%}
+{%  set service = service_defaults.copy() -%}
+{%  do service.update({
+      'CAfile': stunnel.conf_dir+'/tls/'+name+'.ca',
+      'cert': stunnel.conf_dir+'/tls/'+name+'.crt',
+      'key': stunnel.conf_dir+'/tls/'+name+'.key',
+}) -%}
+{%  do service.update(salt['pillar.get']('stunnel:config:services:'+name, {})) -%}
 [ {{ name }} ]
-{%  for key in config.keys() | sort -%}
-{%    set setting = config.get(key) -%}
+{%  for key in service.keys() | sort -%}
+{%    set setting = service.get(key) -%}
 {%    if setting is iterable and setting is not string -%}
 {%      for value in setting -%}
 {{ key }} = {{ value }}
@@ -17,7 +27,9 @@
 {%      else -%}
 {%        set value = setting -%}
 {%      endif -%}
+{%      if value is not none-%}
 {{ key }} = {{ value }}
+{%      endif -%}
 {%    endif -%}
-{% endfor -%}
+{%  endfor -%}
 {% endmacro -%}

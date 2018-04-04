@@ -1,5 +1,4 @@
 {% from "stunnel/map.jinja" import stunnel with context -%}
-{% from "stunnel/map.jinja" import service_defaults with context -%}
 
 stunnel_package:
   pkg.installed:
@@ -52,17 +51,8 @@ stunnel_package:
   file.absent: []
 {% endif -%}
 
-{% for service_name, service_custom in salt['pillar.get']('stunnel:config:services', {}).items() -%}
-{% set service = service_defaults.copy() -%}
-{% do service.update({
-    'name': service_name,
-    'CAfile':stunnel.conf_dir+'/tls/'+service_name+'.ca',
-    'cert':stunnel.conf_dir+'/tls/'+service_name+'.crt',
-    'key':stunnel.conf_dir+'/tls/'+service_name+'.key',
-}) -%}
-{% do service.update(service_custom) -%}
-
-{{ stunnel.conf_dir }}/services.d/{{ service.name }}.conf:
+{% for name in salt['pillar.get']('stunnel:config:services', {}).keys() -%}
+{{ stunnel.conf_dir }}/services.d/{{ name }}.conf:
   file.managed:
     - template: jinja
     - user: {{ stunnel.root_user }}
@@ -74,8 +64,7 @@ stunnel_package:
     - watch_in:
       - service: stunnel_service
     - context:
-        name: {{ service_name }}
-        config: {{ service }}
+        name: {{ name }}
 {% endfor -%}
 
 {{ stunnel.log_dir }}:
