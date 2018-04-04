@@ -28,7 +28,6 @@ stunnel:
         client: 'no'
         accept: '12003'
         connect: '127.0.0.1:2003'
-        nodelay: True     # l:TCP_NODELAY=1 on server, r:TCP_NODELAY=1 on client
         # These two strongly depend on your security model
         verifyChain: yes
         verifyPeer: no
@@ -37,4 +36,3 @@ stunnel:
         client: 'yes'
         accept: '127.0.0.1:2003'
         connect: 'example.com:12003'
-        nodelay: True     # l:TCP_NODELAY=1 on server, r:TCP_NODELAY=1 on client
