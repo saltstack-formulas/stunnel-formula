@@ -10,6 +10,7 @@ stunnel:
     conf_dir: /etc/stunnel
     log_dir: /var/log/stunnel
     pid: /var/run/stunnel.pid
+    debug: notice
     service_defaults:  # use this to override service_defaults.yaml
       # The presence of these files per service is MANDATORY.
       # Managing these files is currently out of scope of this formula.
@@ -17,10 +18,15 @@ stunnel:
       cert: /etc/stunnel/tls/${service_name}.crt
       key: /etc/stunnel/tls/${service_name}.key
       CAfile: /etc/stunnel/tls/${service_name}.ca
+      checkHost: yes
+      checkIP: yes
       # in example:
       verifyChain: yes  # True and False work too
       verifyPeer: yes
-      debug: notice
+      # for old versions of stunnel
+      verifyChain:
+      verifyPeer:
+      verify: 2
 
   config:
     services:
@@ -36,3 +42,6 @@ stunnel:
         client: 'yes'
         accept: '127.0.0.1:2003'
         connect: 'example.com:12003'
+        # to deactivate
+        verifyChain: no
+        verifyPeer: no
