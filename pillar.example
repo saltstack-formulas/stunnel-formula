@@ -16,7 +16,7 @@ stunnel:
       # (Have a look at map.jinja to get your OS'es paths.)
       cert: /etc/stunnel/tls/${service_name}.crt
       key: /etc/stunnel/tls/${service_name}.key
-      ca: /etc/stunnel/tls/${service_name}.ca
+      CAfile: /etc/stunnel/tls/${service_name}.ca
       # in example:
       verifyChain: yes  # True and False work too
       verifyPeer: yes
