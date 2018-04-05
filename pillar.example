@@ -18,15 +18,17 @@ stunnel:
       cert: /etc/stunnel/tls/${service_name}.crt
       key: /etc/stunnel/tls/${service_name}.key
       CAfile: /etc/stunnel/tls/${service_name}.ca
-      checkHost: yes
-      checkIP: yes
       # in example:
       verifyChain: yes  # True and False work too
       verifyPeer: yes
-      # for old versions of stunnel
+      # for old versions of stunnel: set to None to get rid of those settings (or use the default)
       verifyChain:
       verifyPeer:
       verify: 2
+      #
+      # The idea is to provide a secure default which you can later
+      # adjust by selectively altering or deactivating certain settings.
+      # (See below.)
 
   config:
     services:
@@ -36,8 +38,10 @@ stunnel:
         connect: '127.0.0.1:2003'
         # These two strongly depend on your security model
         verifyChain: yes
-        verifyPeer: no
+        verifyPeer: yes
         debug: notice
+        checkHost: myhostname
+        checkIP: 192.168.0.1
       graphite-client:
         client: 'yes'
         accept: '127.0.0.1:2003'
