@@ -13,7 +13,6 @@ ciphers: 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+S
 sslVersion: all
 # Exclude known (becoming) insecure SSL/TLS versions
 options:
-  - NO_SSLv2
   - NO_SSLv3
   - NO_TLSv1
   - cipher_server_preference
