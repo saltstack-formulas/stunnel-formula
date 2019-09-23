@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+name: default
+title: stunnel formula
+maintainer: SaltStack Formulas
+license: Apache-2.0
+summary: Verify that the stunnel formula is setup and configured correctly
+supports:
+  - platform-name: debian

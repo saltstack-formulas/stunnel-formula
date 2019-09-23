@@ -42,8 +42,15 @@ platforms:
       platform: <%= distrib %>
 
 verifier:
+  # https://www.inspec.io/
   name: inspec
-  format: progress
+  sudo: true
+  # cli, documentation, html, progress, json, json-min, json-rspec, junit
+  reporter:
+    - cli
 
 suites:
   - name: stunnel
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
