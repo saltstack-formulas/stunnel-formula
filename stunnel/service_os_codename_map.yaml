@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-
+---
 # Uses < 5.06
 trusty: &still_supporting_SSLv2
   options:

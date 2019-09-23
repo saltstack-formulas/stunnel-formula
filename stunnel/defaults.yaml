@@ -5,7 +5,7 @@
 # from top to bottom! All the settings are taken from there.
 
 # GLOBAL DEFAULTS
-
+---
 stunnel:
   root_user: root
   root_group: root
