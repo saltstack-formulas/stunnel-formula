@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+# Uses < 5.06
+trusty: &still_supporting_SSLv2
+  options:
+    - NO_SSLv2
+    - NO_SSLv3
+    - NO_TLSv1
+    - cipher_server_preference

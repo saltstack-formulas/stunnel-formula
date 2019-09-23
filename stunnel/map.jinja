@@ -5,11 +5,12 @@
 {% import_yaml "stunnel/os_family_map.yaml" as os_family_map %}
 {% import_yaml "stunnel/os_codename_map.yaml" as os_codename_map %}
 {% import_yaml "stunnel/service_defaults.yaml" as service_defaults %}
+{% import_yaml "stunnel/service_os_codename_map.yaml" as service_os_codename_map %}
 
 {# get the settings for the os_family grain #}
 {% set osfam = salt['grains.filter_by'](os_family_map) or {} %}
 
-{# get the settings for the oscodename grain, os_family data will override oscodename data #}
+{# get the settings for the oscodename grain #}
 {% set oscode = salt['grains.filter_by'](os_codename_map, grain='oscodename', merge=osfam) or {} %}
 
 {# merge the os family/os codename specific data over the defaults #}
@@ -20,3 +21,6 @@
 
 {# merge the actual stunnel pillar into the above combined dict #}
 {% set stunnel = salt['pillar.get']('stunnel', default=lookup, merge=True) %}
+
+{# update service defaults #}
+{% do service_defaults.update(salt['grains.filter_by'](service_os_codename_map, grain='oscodename') or {}) %}
