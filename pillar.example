@@ -45,8 +45,8 @@ stunnel:
         accept: '12003'
         connect: '127.0.0.1:2003'
         # These two strongly depend on your security model
-        verifyChain: yes
-        verifyPeer: yes
+        verifyChain: 'yes'
+        verifyPeer: 'yes'
         debug: notice
         checkHost: myhostname
         checkIP: 192.168.0.1
@@ -55,5 +55,5 @@ stunnel:
         accept: '127.0.0.1:2003'
         connect: 'example.com:12003'
         # to deactivate
-        verifyChain: no
-        verifyPeer: no
+        verifyChain: 'no'
+        verifyPeer: 'no'
