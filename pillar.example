@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 stunnel:
 
   # These have defaults set by grains filtering in map.jinja
@@ -11,21 +14,26 @@ stunnel:
     log_dir: /var/log/stunnel
     pid: /var/run/stunnel.pid
     debug: notice
-    service_defaults:  # use this to override service_defaults.yaml
+    service_defaults:
+      # Use this to override service_defaults.yaml
       # The presence of these files per service is MANDATORY.
       # Managing these files is currently out of scope of this formula.
       # (Have a look at map.jinja to get your OS'es paths.)
       cert: /etc/stunnel/tls/${service_name}.crt
       key: /etc/stunnel/tls/${service_name}.key
       CAfile: /etc/stunnel/tls/${service_name}.ca
+
       # in example:
-      verifyChain: yes  # True and False work too
-      verifyPeer: yes
-      # for old versions of stunnel: set to None to get rid of those settings (or use the default)
-      verifyChain:
-      verifyPeer:
-      verify: 2
-      #
+      # `true` and `false` work too
+      # verifyChain: 'yes'
+      # verifyPeer: true
+
+      # for old versions of stunnel: set to None to get rid
+      # of those settings (or use the default)
+      # verifyChain: null
+      # verifyPeer: null
+      # verify: 2
+
       # The idea is to provide a secure default which you can later
       # adjust by selectively altering or deactivating certain settings.
       # (See below.)
@@ -37,8 +45,8 @@ stunnel:
         accept: '12003'
         connect: '127.0.0.1:2003'
         # These two strongly depend on your security model
-        verifyChain: yes
-        verifyPeer: yes
+        verifyChain: 'yes'
+        verifyPeer: 'yes'
         debug: notice
         checkHost: myhostname
         checkIP: 192.168.0.1
@@ -47,5 +55,5 @@ stunnel:
         accept: '127.0.0.1:2003'
         connect: 'example.com:12003'
         # to deactivate
-        verifyChain: no
-        verifyPeer: no
+        verifyChain: 'no'
+        verifyPeer: 'no'

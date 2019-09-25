@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-
+---
 Debian:
   package: stunnel4
   service: stunnel4
