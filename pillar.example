@@ -24,14 +24,14 @@ stunnel:
       CAfile: /etc/stunnel/tls/${service_name}.ca
 
       # in example:
-      # True and False work too
-      # verifyChain: yes
-      # verifyPeer: yes
+      # `true` and `false` work too
+      # verifyChain: 'yes'
+      # verifyPeer: true
 
       # for old versions of stunnel: set to None to get rid
       # of those settings (or use the default)
-      # verifyChain:
-      # verifyPeer:
+      # verifyChain: null
+      # verifyPeer: null
       # verify: 2
 
       # The idea is to provide a secure default which you can later
