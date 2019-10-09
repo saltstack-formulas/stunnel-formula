@@ -16,7 +16,7 @@ include:
 {%-     if not extension %}
 {%-       continue %}
 {%-     endif %}
-{{ stunnel.conf_dir}}/tls/{{ name }}.{{extension}}:
+{{ stunnel.conf_dir }}/tls/{{ name }}.{{ extension }}:
   file.managed:
     - user: {{ stunnel.root_user }}
     - group: {{ stunnel.group }}
