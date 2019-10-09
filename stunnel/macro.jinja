@@ -23,11 +23,11 @@
 {%      if setting is sameas True -%}
 {%        set value = 'yes' -%}
 {%      elif setting is sameas False -%}
-{%        set value = 'no'-%}
+{%        set value = 'no' -%}
 {%      else -%}
 {%        set value = setting -%}
 {%      endif -%}
-{%      if value is not none-%}
+{%      if value is not none -%}
 {{ key }} = {{ value }}
 {%      endif -%}
 {%    endif -%}
