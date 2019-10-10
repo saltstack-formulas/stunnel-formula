@@ -2,6 +2,24 @@
 Changelog
 =========
 
+`0.2.1 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.2.0...v0.2.1>`_ (2019-10-10)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **macro.jinja:** fix ``salt-lint`` errors (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/09646f9>`_\ )
+* **pillar_certs.sls:** fix ``salt-lint`` errors (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/79100c1>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen:** install required packages to bootstrapped ``opensuse`` [skip ci] (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/219bf04>`_\ )
+* **kitchen:** use bootstrapped ``opensuse`` images until ``2019.2.2`` [skip ci] (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/9c9a58d>`_\ )
+* merge travis matrix, add ``salt-lint`` & ``rubocop`` to ``lint`` job (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/94f95e2>`_\ )
+
 `0.2.0 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.1.1...v0.2.0>`_ (2019-09-25)
 ---------------------------------------------------------------------------------------------------------
 
