@@ -2,6 +2,22 @@
 Changelog
 =========
 
+`0.2.2 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.2.1...v0.2.2>`_ (2019-10-12)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **rubocop:** add fixes using ``rubocop --safe-auto-correct`` (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/3738a21>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* merge travis matrix, add ``salt-lint`` & ``rubocop`` to ``lint`` job (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/687e84f>`_\ )
+* **travis:** merge ``rubocop`` linter into main ``lint`` job (\ ` <https://github.com/saltstack-formulas/stunnel-formula/commit/823496b>`_\ )
+
 `0.2.1 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.2.0...v0.2.1>`_ (2019-10-10)
 ---------------------------------------------------------------------------------------------------------
 
