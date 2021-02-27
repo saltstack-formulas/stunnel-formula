@@ -8,3 +8,7 @@ trusty: &still_supporting_SSLv2
     - NO_SSLv3
     - NO_TLSv1
     - cipher_server_preference
+# Uses ~ 5.30
+xenial:
+  verifyChain: ~
+  verifyPeer: ~
