@@ -312,6 +312,7 @@ suites:
       state_top:
         base:
           '*':
+            - stunnel._mapdata
             - stunnel.pillar_certs
             - stunnel
       pillars:
