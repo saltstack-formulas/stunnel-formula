@@ -9,6 +9,13 @@ pid = /stunnel.pid
 pid = {{ stunnel.pid_dir }}/stunnel.pid
 {% endif %}
 
+foreground = yes
+# Required for to run as a native systemd service
+# The default service is 'stunnel@stunnel.service'
+# 'stunnel4.service' that is build from sysv init script is DEPRECATED.
+# It was no longer automatically enabled since version 3:5.56+dfsg-7
+# And was fully DEPRECATED in version 3:5.72-3
+
 setuid = {{ stunnel.user }}
 setgid = {{ stunnel.group }}
 

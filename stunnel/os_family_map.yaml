@@ -3,7 +3,7 @@
 ---
 Debian:
   package: stunnel4
-  service: stunnel4
+  service: stunnel@stunnel.service
   user: stunnel4
   group: stunnel4
   home: /var/lib/stunnel4

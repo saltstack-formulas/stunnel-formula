@@ -85,6 +85,16 @@ stunnel_package:
     - source: salt://stunnel/files/default.jinja
     - context:
         conf_dir: {{ stunnel.conf_dir }}
+
+{% if stunnel.service != 'stunnel4.service' and
+      stunnel.service != 'stunnel4'  %}
+remove_deprecated_stunnel_service:
+  service.dead:
+    - name: 'stunnel4.service'
+    - enable: False
+# DEPRECATED see /usr/share/doc/stunnel4/NEWS.Debian.gz
+# This state is used to clean-up the deprecated service after upgrades.
+{% endif -%}
 {% endif -%}
 
 stunnel_service:
