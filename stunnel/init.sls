@@ -84,7 +84,7 @@ stunnel_package:
     - mode: 644
     - source: salt://stunnel/files/default.jinja
     - context:
-      conf_dir: {{ stunnel.conf_dir }}
+        conf_dir: {{ stunnel.conf_dir }}
 {% endif -%}
 
 stunnel_service:
