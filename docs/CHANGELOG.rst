@@ -2,6 +2,49 @@
 Changelog
 =========
 
+`1.0.0 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.3.0...v1.0.0>`_ (2026-10-16)
+---------------------------------------------------------------------------------------------------------
+
+⚠ BREAKING CHANGES
+^^^^^^^^^^^^^^^^^^
+
+
+* default service name changed from ``stunnel4`` to
+  ``stunnel@stunnel``
+
+Features
+^^^^^^^^
+
+
+* **files:** new option to clean residual conf files in services.d folder (\ `6dd8d78 <https://github.com/saltstack-formulas/stunnel-formula/commit/6dd8d7840d8ed627507fc6f2eb501dc6ec76c682>`_\ )
+
+Bug Fixes
+^^^^^^^^^
+
+
+* default switch to systemd service instead of sysv init script (\ `7d8e32a <https://github.com/saltstack-formulas/stunnel-formula/commit/7d8e32a33dbe0c0527744f10e5d22e71b870f2f8>`_\ )
+* **init.sls:** use correct YAML indentation (\ `0c5ebe2 <https://github.com/saltstack-formulas/stunnel-formula/commit/0c5ebe2fbddf375917394a395e49e6d2f5886f8c>`_\ )
+
+Testing
+^^^^^^^
+
+
+* legacy service ``stunnel4`` should be dead (\ `5caee2d <https://github.com/saltstack-formulas/stunnel-formula/commit/5caee2d6c41ba387911960274fd670e465992726>`_\ )
+* service ``stunnel@stunnel`` should be enabled/running (\ `f01d051 <https://github.com/saltstack-formulas/stunnel-formula/commit/f01d051455ca4bc25f8e4ded50514d1b3d44f821>`_\ )
+
+Style Changes
+^^^^^^^^^^^^^
+
+
+* stylistic clean-up (\ `efd136d <https://github.com/saltstack-formulas/stunnel-formula/commit/efd136d8a1a947c8b86710f1b8d66e0e3e5072fa>`_\ )
+
+Maintenance
+^^^^^^^^^^^
+
+
+* **commitlint:** loosen ``header-max-length`` to get CI to run (\ `58c46fc <https://github.com/saltstack-formulas/stunnel-formula/commit/58c46fc9795a77843143fe2172398b986546b7cc>`_\ )
+* **copier:** apply template https://github.com/dafyddj/copier-ssf-ci at v2.11.14 (\ `2a0e44d <https://github.com/saltstack-formulas/stunnel-formula/commit/2a0e44dbf51740f0d11513e8d516bb7570fce35c>`_\ )
+
 `0.3.0 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.2.3...v0.3.0>`_ (2023-01-25)
 ---------------------------------------------------------------------------------------------------------
 
