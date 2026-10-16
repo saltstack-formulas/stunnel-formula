@@ -86,14 +86,11 @@ stunnel_package:
     - context:
         conf_dir: {{ stunnel.conf_dir }}
 
-{% if stunnel.service != 'stunnel4.service' and
-      stunnel.service != 'stunnel4'  %}
-remove_deprecated_stunnel_service:
+{% if not stunnel.service.startswith("stunnel4") -%}
+remove_legacy_stunnel_service_after_upgrade:
   service.dead:
-    - name: 'stunnel4.service'
-    - enable: False
-# DEPRECATED see /usr/share/doc/stunnel4/NEWS.Debian.gz
-# This state is used to clean-up the deprecated service after upgrades.
+    - name: stunnel4.service
+    - enable: false
 {% endif -%}
 {% endif -%}
 
