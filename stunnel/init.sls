@@ -84,7 +84,14 @@ stunnel_package:
     - mode: 644
     - source: salt://stunnel/files/default.jinja
     - context:
-      conf_dir: {{ stunnel.conf_dir }}
+        conf_dir: {{ stunnel.conf_dir }}
+
+{% if not stunnel.service.startswith("stunnel4") -%}
+remove_legacy_stunnel_service_after_upgrade:
+  service.dead:
+    - name: stunnel4.service
+    - enable: false
+{% endif -%}
 {% endif -%}
 
 stunnel_service:

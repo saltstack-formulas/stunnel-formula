@@ -9,6 +9,9 @@ pid = /stunnel.pid
 pid = {{ stunnel.pid_dir }}/stunnel.pid
 {% endif %}
 
+# Required to run per-config-file systemd services
+foreground = yes
+
 setuid = {{ stunnel.user }}
 setgid = {{ stunnel.group }}
 
