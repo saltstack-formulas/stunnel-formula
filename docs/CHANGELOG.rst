@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`1.0.1 <https://github.com/saltstack-formulas/stunnel-formula/compare/v1.0.0...v1.0.1>`_ (2026-10-20)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* add retries to bring the service online (\ `a66432d <https://github.com/saltstack-formulas/stunnel-formula/commit/a66432dcf786acdf8e1c813974d18f39474fd2eb>`_\ )
+
 `1.0.0 <https://github.com/saltstack-formulas/stunnel-formula/compare/v0.3.0...v1.0.0>`_ (2026-10-16)
 ---------------------------------------------------------------------------------------------------------
 
