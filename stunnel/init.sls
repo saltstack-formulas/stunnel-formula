@@ -97,5 +97,8 @@ remove_legacy_stunnel_service_after_upgrade:
 stunnel_service:
   service.running:
     - name: {{ stunnel.service }}
-    - enable: True
-    - restart: True
+    - enable: true
+    - restart: true
+    - retry:
+        attempts: 5
+        interval: 2
